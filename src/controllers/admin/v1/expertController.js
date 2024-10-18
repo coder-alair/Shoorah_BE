@@ -73,11 +73,9 @@ const { google } = require('googleapis');
 
 const CLIENT_ID = '1071033499318-6jn326lrp7njj2qiesjstr4nrlhj7g0k.apps.googleusercontent.com';
 // const CLIENT_ID = '607043867419-pprf79ppfn6qpesrc3qgi2cd8r0fhgq0.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
+//const CLIENT_SECRET = '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';
 // const CLIENT_SECRET = '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';
 const REDIRECT_URI = 'http://localhost:3003/admin/v1/google/redirect';
-
-// const REDIRECT_URI = "https://025a-2405-201-2014-10ce-1ec-72b8-ad89-f06c.ngrok-free.app/google/redirect"
 
 const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 
