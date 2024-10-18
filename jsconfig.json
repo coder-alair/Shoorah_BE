@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@handlers/*": ["./js/handlers/*"],
+            "@utils/*": ["./js/utils/*"],
+            "@root/*": ["./*"],
+            "@config/*": ["./src/config/*"],
+            "@controllers/*": ["./src/controllers/*"],
+            "@models": ["./src/models/index.js"],
+            "@services/*": ["./src/services/*"],
+            "@helpers/*": ["./src/helpers/*"],
+            "@transformers/*": ["./src/transformers/*"],
+            "@seeders/*": ["./src/seeders/*"],
+            "@middleware/*": ["./src/middleware/*"],
+            "@crons/*": ["./src/cronJob/*"]
+        }
+    },
+    "exclude": ["node_modules", "**/node_modules/*"]
+}

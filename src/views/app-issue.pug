@@ -1,0 +1,86 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap' rel='stylesheet')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js')
+    title shoorah PDF
+  body
+    div(style='width: 800px;height: 1024px;margin: auto;')
+      // A4 size
+      div(style='border: 2px solid #4A56DB;')
+      div(style='padding: 30px 30px 0px 30px;')
+        div(style='display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div
+            h1(style="font-family: 'Poppins';width: auto;height: 21px;font-style: normal;font-weight: 400;font-size: 16px;line-height: 21px;color: #18202F;margin: 0;")
+              | App Issue Report 
+          div
+            img(src='https://d12231i07r54en.cloudfront.net/app_configs/pdf_shoorah_logo.png' alt='shoorah-logo' style='width: 120px;height: 20px;')
+        div(style='display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%;height: 41px;background: #3a47ab;border-radius: 10px;margin: 40px 0px 30px 0px;')
+          p(style="width: auto;height: 21px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #FFFFFF;margin: 0;")
+            | Issued reported on  #{locals.issuedAt}
+        div(style='position:relative;margin: 20px 0px 0px 0px;width: 100%;height: 200px;border: 1px dashed rgba(24, 32, 47, 0.4);\
+        border-radius: 10px;padding:0px 0px 0px 10px;display: flex;flex-direction: row;justify-content: start;')
+          div(style='display: flex;flex-direction: column;width: 70%;height: auto;')
+            h1(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 30px;text-align: left;color: #18202F;")
+              | Issued Content : #{locals.issue.contentName}
+            p(style="width: 100%;height: 6px;font-family:Poppins;font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: left;                    \
+            color: #18202F;")
+              | Content Type : #{locals.contentType}
+            p(style="width: 100%;height: 8px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: left;                    \
+            color: #18202F;")
+              | Content Description : #{locals.issue.contentDescription}
+          div(style='position:absolute;top:15px;right:20px;display: flex;margin: 0px 0px 0px 0px')
+           div(style='height:120px;width:120px;display:flex;overflow:hidden;justify-content:center;align-items:center;background-color:red;border-radius:100%;')
+             img(src= locals.issue.contentImage alt='image-error' style='height:100%;width:100%;object-fit: cover;')
+            
+        div(style='position:relative;margin: 50px 0px 0px 0px;width: 100%;height: 200px;border: 1px dashed rgba(24, 32, 47, 0.4);\
+        border-radius: 10px;padding:0px 0px 0px 10px;display: flex;flex-direction: row;justify-content: start;')
+          div(style='display: flex;flex-direction: column;width: 70%;height: auto;')
+            h1(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 30px;text-align: left;color: #18202F;")
+              | Issued By : #{locals.issue.createdByName} (#{locals.issue.createdByEmail})
+            p(style="width: 100%;height: 6px;font-family:Poppins;font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: left;                    \
+            color: #18202F;")
+              | Issue Type : #{locals.issueType}
+            p(style="width: 100%;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: left;                    \
+            color: #18202F;")
+              | Issue Description : #{locals.issue.description}
+            p(style="width: 100%;height: 2px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: left;                    \
+            color: #18202F;")
+              | Please download the issue screenshot with this url below :
+            a(href=locals.issue.imageUrl style="width: 100%;height: 4px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: left;                    \
+            color: #3a47ab;")
+              | Download
+          div(style='position:absolute;height:80%;top:15px;right:20px;display: flex;margin: 0px 0px 0px 0px')
+           div(style='height:100%;width:120px;display:flex;overflow:hidden;justify-content:center;align-items:center;background-color:transparent;border-radius:10px;')
+             img(src= locals.issue.imageUrl alt='no-image' style='height:100%;width:100%;object-fit: cover;')
+        
+        div(style='position:relative;margin: 60px auto auto auto;width: 90%;height: 100px;\
+        border-radius: 10px;padding:0px 0px 0px 20px;display: flex;flex-direction: row;justify-content: center;align-items:center')
+          div(style='display: flex;gap:30px;margin: 0px 0px 0px 0px')
+            div(style='height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;background-color:transparent;')
+              p(style="width: 100%;height: 8px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: center;                    \
+            color: #18202F;")
+                | Sent to developer 
+              img(src=locals.sentToDev alt='no-image' style='height:70%;width:70%;object-fit: cover;border-radius:100%;')
+            div(style='height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;background-color:transparent;')
+              p(style="width: 100%;height: 8px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: center;                    \
+            color: #18202F;")
+                | Fixed
+              img(src= locals.issueResolved alt='no-image' style='height:70%;width:70%;object-fit: cover;border-radius:100%;')
+            div(style='height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;background-color:transparent;')
+              p(style="width: 100%;height: 8px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: center;                    \
+            color: #18202F;")
+                | Implemented 
+              img(src= locals.implemented alt='no-image' style='height:70%;width:70%;object-fit: cover;border-radius:100%;')
+            
+
+        div(style='margin-top: 30px;width: 100%;height: auto;')
+          p(style="margin: 0;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 11px;line-height: 14px;color: #727272;")
+        p(style="margin: 280px 0px 10px 0px;text-align: center;width: auto;height: auto;font-family: Poppins;font-style: normal;font-weight: 300;font-size: 13px;line-height: 15px;color: #727272;")
+          | This App Issue report is generated from the Shoorah Ltd mobile app ❤️
+    script.

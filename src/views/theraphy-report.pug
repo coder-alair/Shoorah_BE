@@ -1,0 +1,453 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap' rel='stylesheet')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js')
+    title shoorah PDF
+  body
+    div(style='width: 800px;height: 1024px;margin: auto;')
+      // A4 size
+      div(style='border: 2px solid #4A56DB;')
+      div(style='padding: 30px 30px 0px 30px;')
+        div(style='display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div
+            h1(style="font-family: 'Poppins';width: auto;height: 21px;font-style: normal;font-weight: 400;font-size: 14px;line-height: 21px;color: #18202F;margin: 0;")
+              | Name: 
+              span(style='font-weight: 500;')
+                i #{locals.name}
+          div
+            img(src='https://d12231i07r54en.cloudfront.net/app_configs/pdf_shoorah_logo.png' alt='shoorah-logo' style='width: 120px;height: 20px;')
+        div(style='display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%;height: 41px;background: #4A56DB;border-radius: 10px;margin: 20px 0px 25px 0px;')
+          p(style="width: auto;height: 21px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #FFFFFF;margin: 0;")
+            | #{locals.fromDate} - #{locals.toDate}
+        div(style='margin:0px 0px 30px 0px;width: 95%;height: auto;display: flex;flex-direction: row;align-items: center;justify-content: center;')
+           div(style='width: 100%;height: auto;')
+             h1(style="font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 26px;line-height: 24px;width: auto;height: 24px;\
+              color: #18202F;margin: 0;text-align: center;") Shuru Theraphy Report
+           
+        div(style='width: 98%;height: auto;margin: auto;display: flex;flex-direction: row;align-items: center;justify-content: space-between;')  
+          div(style='width: 47.5%;height: auto;margin:0px 60px 0px 0px;')
+            div(style='width: 100%;height: auto;')
+              h1(style="font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 24px;width: auto;height: 24px;color: #18202F;margin: 0;text-align: center;")
+                | Negative Score
+              div(style='display: flex;justify-content: center;align-items: center;margin-top: 25px;')
+                div(style='width: 100%;height: auto;')
+                  div(style='position: relative;')
+                    canvas#negativeChart(style='width:100%;max-width:600px;')
+                    img(src= locals.sadSmallIcon alt='error' style='position: absolute;top: 58px;left: 130px;')
+                  div(style='width: 100%;height: auto;margin: 25px 50px 0px 50px;')
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #F4A261;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[0]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[0]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #E9C46A;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[1]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[1]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#8B5CF6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[2]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[2]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#ADD8E6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[3]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[3]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#66FF33;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[4]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[4]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF9966;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[5]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[5]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#6699FF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[6]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[6]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FFCC33;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[7]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[7]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#3366FF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[8]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[8]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF33CC;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[9]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[9]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #33CCFF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[10]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[10]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #CCFF33;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |#{theraphyNegative[11]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[11]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF6633;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[12]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[12]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F08080;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[13]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[13]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F46196;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[14]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[14]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#0b1426;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[15]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[15]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#6cb259;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[16]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[16]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF9900;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[17]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[17]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 20px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#00FF99;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[18]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[18]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF3300;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[19]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[19]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#00FFFF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[20]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[20]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF0000;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[21]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[21]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#000000;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[22]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[22]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#0000FF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[23]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[23]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FFFF00;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyNegative[24]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyNegativeCategories[24]}
+                  
+                    li(style="margin: 0px;width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 18px;color: #18202F;margin-top: 35px;")
+                      | Negative Score: 
+                      span(style='color: #F04438;font-size: 18px;') #{percentageNegative}%
+        
+         
+          div(style='width: 47.5%;height: auto;margin:0px 60px 0px 0px;')
+            div(style='width: 100%;height: auto;')
+              h1(style="font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 24px;width: auto;height: 24px;\
+              color: #18202F;margin: 0;text-align: center;") Positive Score
+              div(style='display: flex;justify-content: center;align-items: center;margin-top: 25px;')
+                div(style='width: 100%;height: auto;')
+                  div(style='position: relative;')
+                    canvas#positiveChart(style='width:100%;max-width:600px;')
+                    img(src= locals.happySmallIcon alt='Happy Icon' style='position: absolute;top: 58px;left: 130px;')
+                  div(style='width: 100%;height: auto;margin: 25px 50px 0px 50px;')
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #F4A261;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[0]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[0]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #E9C46A;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[1]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[1]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#8B5CF6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[2]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[2]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#ADD8E6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[3]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[3]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#66FF33;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[4]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[4]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF9966;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[5]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[5]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#6699FF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[6]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[6]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FFCC33;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[7]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[7]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#3366FF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[8]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[8]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF33CC;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[9]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[9]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #33CCFF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[10]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[10]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #CCFF33;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |#{theraphyPositive[11]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[11]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF6633;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[12]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[12]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F08080;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[13]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[13]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F46196;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[14]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[14]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#0b1426;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[15]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[15]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#6cb259;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[16]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[16]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF9900;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[17]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[17]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 20px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#00FF99;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[18]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[18]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF3300;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[19]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[19]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#00FFFF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[20]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[20]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FF0000;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[21]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[21]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#000000;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[22]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[22]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#0000FF;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[23]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[23]}
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 15px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#FFFF00;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{theraphyPositive[24]}
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | #{theraphyPositiveCategories[24]}
+                  
+                    li(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 18px;color: #18202F;margin-top: 35px;")
+                      | Positive Score: 
+                      span(style='color: #12B76A;font-size: 18px;') #{percentagePositive}%
+        div(style='margin: 100px 0px 0px 0px;width: 95%;height: auto;border: 1px dashed rgba(24, 32, 47, 0.4);\
+        border-radius: 10px;padding: 16px;display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div(style='display: flex;flex-direction: column;justify-content: space-between;width: 70%;height: auto;')
+            h1(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 18px;text-align: left;color: #18202F;margin: 0;")
+              | Final Message:
+            p(style="width: 100%;height: 54px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;text-align: left;                    \
+            color: #18202F;margin: 10px 0px 0px 0px;")
+              | #{locals.finalMessage}
+              //- | For the dates/period you choose, your score is 60-100% and you should be very proud you are in a
+              //- | small minority of humans that are very happy with themselves and with their life. WELL DONE
+          div(style='display: flex;flex-direction: column;align-items: center;justify-content: space-between;')
+            img(src=locals.finalIcon alt='happy.svg' style='width:80px; height:80px;')
+            p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: center;\
+            color: #18202F;margin: 0;") #{locals.finalIconText}
+        div(style='margin-top: 30px;width: 100%;height: auto;')
+          p(style="margin: 0;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 11px;line-height: 14px;color: #727272;")
+            span(style="color:#18202F;") Disclamier:
+            |  The theraphy records shown here is intended for informational purposes only and is not
+            |                     a
+            |                     substitute for professional medical advice, diagnosis, or treatment. The score is based on your
+            |                     self-reported journals and may not accurately reflect your true mental or emotional state. Shoorah is
+            |                     not authorized or regulated to provide official medical or mental health advice. The Shoorah ME
+            |                     section was built for users to track a variety of shuru theraphy, but not all. If you are
+            |                     experiencing any emotional or mental health conditions and have concerns, please seek the advice of
+            |                     a qualified healthcare professional. By using the ME section, you agree to release the developer
+            |                     from any liability arising from your use of our application.
+        p(style="margin: 30px 0px 10px 0px;text-align: center;width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 300;font-size: 13px;line-height: 15px;color: #727272;")
+          | This theraphy report is generated from the Shoorah Ltd mobile app ❤️
+    script.
+      //- var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+      const yNegativeValues = [#{theraphyNegative[0]}, #{theraphyNegative[1]}, #{theraphyNegative[2]},#{theraphyNegative[3]},#{theraphyNegative[4]},#{theraphyNegative[5]},#{theraphyNegative[6]},#{theraphyNegative[7]},#{theraphyNegative[8]},#{theraphyNegative[9]},#{theraphyNegative[10]},#{theraphyNegative[11]},#{theraphyNegative[12]},#{theraphyNegative[13]},#{theraphyNegative[14]},#{theraphyNegative[15]},#{theraphyNegative[16]},#{theraphyNegative[17]},#{theraphyNegative[18]},#{theraphyNegative[19]},#{theraphyNegative[20]},#{theraphyNegative[21]},#{theraphyNegative[22]},#{theraphyNegative[23]},#{theraphyNegative[24]}];
+      const yPositiveValues =  [#{theraphyPositive[0]}, #{theraphyPositive[1]}, #{theraphyPositive[2]},#{theraphyPositive[3]},#{theraphyPositive[4]},#{theraphyPositive[5]},#{theraphyPositive[6]},#{theraphyPositive[7]},#{theraphyPositive[8]},#{theraphyPositive[9]},#{theraphyPositive[10]},#{theraphyPositive[11]},#{theraphyPositive[12]},#{theraphyPositive[13]},#{theraphyPositive[14]},#{theraphyPositive[15]},#{theraphyPositive[16]},#{theraphyPositive[17]},#{theraphyPositive[18]},#{theraphyPositive[19]},#{theraphyPositive[20]},#{theraphyPositive[21]},#{theraphyPositive[22]},#{theraphyPositive[23]},#{theraphyPositive[24]}];
+     
+      const barColors = [
+      "#F4A261",
+      "#E9C46A",
+      "#8B5CF6",
+      "#ADD8E6",
+      "#66FF33",
+      "#FF9966", 
+      "#6699FF", 
+      "#FFCC33", 
+      "#3366FF", 
+      "#FF33CC",
+      "#33CCFF", 
+      "#CCFF33", 
+      "#FF6633", 
+      "#F08080",
+      "#F46196",
+      "#0b1426",
+      "#6cb259",
+      "#FF9900", 
+      "#00FF99", 
+      "#FF3300",
+      "#00FFFF", 
+      "#FF0000", 
+      "#000000", 
+      "#0000FF", 
+      "#FFFF00"
+      ];
+      new Chart("negativeChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: barColors,
+      data: yNegativeValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });
+      new Chart("positiveChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: barColors,
+      data: yPositiveValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });

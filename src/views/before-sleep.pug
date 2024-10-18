@@ -1,0 +1,227 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap' rel='stylesheet')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js')
+    title shoorah PDF
+  body
+    div(style='width: 800px;height: 1024px;margin: auto;')
+      // A4 size
+      div(style='border: 2px solid #4A56DB;')
+      div(style='padding: 30px 30px 0px 30px;')
+        div(style='display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div
+            h1(style="font-family: 'Poppins';width: auto;height: 21px;font-style: normal;font-weight: 400;font-size: 14px;line-height: 21px;color: #18202F;margin: 0;")
+              | Name: 
+              span(style='font-weight: 500;')
+                i #{locals.name}
+          div
+            img(src='https://d12231i07r54en.cloudfront.net/app_configs/pdf_shoorah_logo.png' alt='shoorah-logo' style='width: 120px;height: 20px;')
+        div(style='display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%;height: 41px;background: #4A56DB;border-radius: 10px;margin: 20px 0px 25px 0px;')
+          p(style="width: auto;height: 21px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #FFFFFF;margin: 0;")
+            | #{locals.fromDate} - #{locals.toDate}
+        div(style='width: 95%;height: auto;margin: auto;display: flex;flex-direction: row;align-items: center;justify-content: space-between;')
+          div(style='width: 47.5%;height: auto;')
+            div(style='width: 100%;height: auto;')
+              h1(style="font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 24px;width: auto;height: 24px;color: #18202F;margin: 0;text-align: center;")
+                | Negative Feelings Score
+              div(style='display: flex;justify-content: center;align-items: center;margin-top: 25px;')
+                div(style='width: 80%;height: auto;')
+                  div(style='position: relative;')
+                    canvas#negativeChart(style='width:100%;max-width:600px;')
+                    img(src= locals.sadSmallIcon alt='error' style='position: absolute;top: 48px;left: 111px;')
+                  div(style='width: 100%;height: auto;margin: 25px 0px 0px 50px;')
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #61A5F4;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.anxious}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Anxious (#{moodCount.anxious})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #2A9D8F;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.sad}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Sad (#{moodCount.sad})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F4A261;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.noisy}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Noisy (#{moodCount.noisy})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#E9C46A;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.cold}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Cold (#{moodCount.cold})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#8B5CF6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.agitated}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Agitated (#{moodCount.agitated})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#ADD8E6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.uneasy}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Uneasy (#{moodCount.uneasy})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F08080;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.worried}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Worried (#{moodCount.worried})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F46196;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.overwhelmed}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Overwhelmed (#{moodCount.overwhelmed})
+                   
+                  li(style="margin: 0;width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 18px;color: #18202F;margin-top: 25px;")
+                    | Average negative Score: 
+                    span(style='color: #F04438;font-size: 18px;') #{locals.negativePercentage}%
+          div(style='border: 1px dashed #B6C0F3;height: 593px;')
+          div(style='width: 47.5%;height: auto;')
+            div(style='width: 100%;height: auto;')
+              h1(style="font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 24px;width: auto;height: 24px;\
+              color: #18202F;margin: 0;text-align: center;") Positive Feelings Score
+              div(style='display: flex;justify-content: center;align-items: center;margin-top: 25px;')
+                div(style='width: 80%;height: auto;')
+                  div(style='position: relative;')
+                    canvas#positiveChart(style='width:100%;max-width:600px;')
+                    img(src= locals.happySmallIcon alt='Happy Icon' style='position: absolute;top: 48px;left: 111px;')
+                  div(style='width: 100%;height: auto;margin: 25px 0px 0px 50px;')
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #61A5F4;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.calm}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Calm (#{moodCount.calm})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #2A9D8F;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.happy}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Happy (#{moodCount.happy})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F4A261;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.quiet}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Quiet (#{moodCount.quiet})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#E9C46A;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.warm}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Warm (#{moodCount.warm})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#8B5CF6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.peaceful}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Peaceful (#{moodCount.peaceful})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#ADD8E6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.settled}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Settled (#{moodCount.settled})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F08080;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.atEase}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | At Ease (#{moodCount.atEase})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F46196;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{moodPercentage.inControl}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | In Control (#{moodCount.inControl})
+                  
+                  li(style="margin: 0;width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 18px;color: #18202F;margin-top: 25px;")
+                    | Average positive Score: 
+                    span(style='color: #12B76A;font-size: 18px;') #{locals.postivePercentage}%
+        div(style='margin: 40px 0px 0px 0px;width: 95%;height: auto;border: 1px dashed rgba(24, 32, 47, 0.4);\
+        border-radius: 10px;padding: 16px;display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div(style='display: flex;flex-direction: column;justify-content: space-between;width: 70%;height: auto;')
+            h1(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 18px;text-align: left;color: #18202F;margin: 0;")
+              | Final Message:
+            p(style="width: 100%;height: 54px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;text-align: left;                    \
+            color: #18202F;margin: 10px 0px 0px 0px;")
+              | #{locals.finalMessage}
+              //- | For the dates/period you choose, your score is 60-100% and you should be very proud you are in a
+              //- | small minority of humans that are very happy with themselves and with their life. WELL DONE
+          div(style='display: flex;flex-direction: column;align-items: center;justify-content: space-between;')
+            img(src=locals.finalIcon alt='happy.svg' style='width:80px; height:80px;')
+            p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: center;\
+            color: #18202F;margin: 0;") #{locals.finalIconText}
+        div(style='margin-top: 30px;width: 100%;height: auto;')
+          p(style="margin: 0;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 11px;line-height: 14px;color: #727272;")
+            span(style="color:#18202F;") Disclamier:
+            |  The sleep score shown here is intended for informational purposes only and is not
+            |                     a
+            |                     substitute for professional medical advice, diagnosis, or treatment. The score is based on your
+            |                     self-reported sleep and may not accurately reflect your true mental or emotional state. Shoorah is
+            |                     not authorized or regulated to provide official medical or mental health advice. The Shoorah ME
+            |                     section was built for users to track a variety of moods and emotions, but not all. If you are
+            |                     experiencing any emotional or mental health conditions and have concerns, please seek the advice of
+            |                     a qualified healthcare professional. By using the Sleep section, you agree to release the developer
+            |                     from any liability arising from your use of our application.
+        p(style="margin: 30px 0px 10px 0px;text-align: center;width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 300;font-size: 13px;line-height: 15px;color: #727272;")
+          | This sleep report is generated from the Shoorah Ltd mobile app ❤️
+    script.
+      //- var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+      const yNegativeValues = [#{locals.averageMoods.anxious}, #{locals.averageMoods.sad}, #{locals.averageMoods.noisy}, #{locals.averageMoods.cold}, #{locals.averageMoods.agitated}, #{locals.averageMoods.uneasy},#{locals.averageMoods.worried}, #{locals.averageMoods.overwhelmed}];
+      const yPositiveValues = [#{locals.averageMoods.calm}, #{locals.averageMoods.happy}, #{locals.averageMoods.quiet}, #{locals.averageMoods.warm}, #{locals.averageMoods.peaceful}, #{locals.averageMoods.settled},#{locals.averageMoods.atEase}, #{locals.averageMoods.inControl}];
+      const barColors = [
+      "#61A5F4",
+      "#2A9D8F",
+      "#F4A261",
+      "#E9C46A",
+      "#8B5CF6",
+      "#ADD8E6",
+      "#F08080",
+      "#F46196",
+      "#0b1426",
+      "#6cb259",
+      ];
+      new Chart("negativeChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: barColors,
+      data: yNegativeValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });
+      new Chart("positiveChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: barColors,
+      data: yPositiveValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });

@@ -1,0 +1,2369 @@
+openapi: 3.0.0
+info:
+  title: Shoorah API's Documentation
+  description: |
+    # Shoorah API Documentation
+    This is the API documentation for the Shoorah application.
+
+    ## Categories
+    - Shoorah Admin Auth
+      - Auth APIs
+      - Survey APIs
+      - Meditation APIs
+    - B2B Admin
+      - Authentication APIs
+      - Pods APIs
+  version: 1.0.0
+tags:
+  - name: Shoorah Admin Auth
+    description: Endpoints for Shoorah Admin
+  - name: PODS
+    description: Pods related endpoints for Shoorah Admin
+  - name: Pod Playlist
+    description: Meditation related endpoints for Shoorah Admin
+  - name: Mobile User
+    description: Endpoints for B2B Admin
+  - name: Expert
+    description: Endpoints for Expert
+  - name: Admin 
+    description: Endpoints for Admin
+
+
+components:
+  securitySchemes:
+   BearerAuth:
+    type: http
+     scheme: bearer
+     bearerFormat: JWT
+  schemas:
+    PodExpert:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    AddPodExpertRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: binary
+    UpdatePodExpertRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: binary
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Success'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Error message'
+    Meditation:
+      type: object
+      properties:
+        id:
+          type: string
+        meditationName:
+          type: string
+        meditationSrtName:
+          type: string
+        meditationUrl:
+          type: string
+        srtUrl:
+          type: string
+        duration:
+          type: integer
+        rating:
+          type: number
+        createdOn:
+          type: string
+          format: date-time
+        expertName:
+          type: string
+        approvedOn:
+          type: string
+          format: date-time
+        timeSpent:
+          type: integer
+        timeCounts:
+          type: integer
+        played_time:
+          type: integer
+        played_counts:
+          type: integer
+        meditationStatus:
+          type: integer
+    
+    Expert:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        agreed_rate:
+          type: number  
+        public_rate:
+          type: number  
+        title:
+          type: string
+        medical_no:
+          type: string  
+        education:
+          type: string
+        place_of_practice:
+          type: string
+        year_of_practice:
+          type: string
+        category:
+          type: string
+        specialisation:
+          type: string
+        status:
+          type: boolean
+        profile_status:
+          type: integer
+          enum:
+            - 0  # PENDING
+            - 1  # APPROVED
+            - 2  # REJECTED
+            - 3  # INVITED
+        reject_reason:
+          type: string
+          default: null
+        linkedln_url:
+          type: string
+        location:
+          type: string
+        bio:
+          type: string
+        focus_ids:
+          type: array
+          items:
+            type: string  
+        dbs_check:
+          type: boolean
+          default: false
+        identity:
+          type: boolean
+          default: false
+        profit:
+          type: string
+        cv:
+          type: string
+        insurance:
+          type: array
+          items:
+            type: string
+        certification:
+          type: array
+          items:
+            type: string
+        rating:
+          type: number
+        spoken_languages:
+          type: array
+          items:
+            type: string
+        deletedAt:
+          type: string
+          format: date-time
+        industry_experience:
+          type: array
+          items:
+            type: string
+        highest_certification:
+          type: array
+          items:
+            type: string
+        qualification:
+          type: string
+        language:
+          type: string
+        current_job_title:
+          type: string  
+        place_of_education:
+          type: string
+        year_of_experience:
+          type: string
+        specialities:
+          type: string
+        availability:
+          type: string  
+        price_per_hour:
+          type: string
+        reason_to_join:
+          type: string
+        applicant_id:
+          type: string
+        workflow_run_id:
+          type: string
+        check_id:
+          type: string
+        professional_sector:
+          type: array
+          items:
+            type: string
+
+    Admin:
+      type: object
+      properties:
+        company_id:
+          type: string
+        name:
+          type: string
+          maxLength: 60
+          example: "John Doe"
+        address:
+          type: string
+          maxLength: 100
+          example: "123 Main St, City, Country"
+        first_name:
+          type: string
+          maxLength: 60
+          example: "John"
+        last_name:
+          type: string
+          maxLength: 60
+          example: "Doe"
+        email:
+          type: string
+          maxLength: 60
+          example: "john.doe@example.com"
+        password:
+          type: string
+          example: "yourpassword"
+        user_type:
+          type: integer
+          enum:
+            - 0  # USER_TYPE.SUPER_ADMIN
+            - 1  # USER_TYPE.SUB_ADMIN
+            - 2  # USER_TYPE.USER
+            - 3  # USER_TYPE.COMPANY_ADMIN
+            - 4  # USER_TYPE.COMPANY_SUB_ADMIN
+            - 5  # USER_TYPE.PARTNER
+            - 6  # USER_TYPE.EXPERT
+          default: 2
+        user_profile:
+          type: string
+          default: null
+        account_type:
+          type: integer
+          enum:
+            - 0  # ACCOUNT_TYPE.FREE
+            - 1  # ACCOUNT_TYPE.IS_UNDER_TRIAL
+            - 2  # ACCOUNT_TYPE.PAID
+            - 3  # ACCOUNT_TYPE.EXPIRED
+          default: 0
+        login_platform:
+          type: integer
+          enum:
+            - 0  # SOCIAL_LOGIN_TYPE.GOOGLE
+            - 1  # SOCIAL_LOGIN_TYPE.APPLE
+            - 2  # SOCIAL_LOGIN_TYPE.FACEBOOK
+            - 3  # SOCIAL_LOGIN_TYPE.SHOORAH
+          default: 3
+        status:
+          type: integer
+          enum:
+            - 0  # ACCOUNT_STATUS.INACTIVE
+            - 1  # ACCOUNT_STATUS.ACTIVE
+            - 2  # ACCOUNT_STATUS.DELETED
+          default: 1
+        otp:
+          type: string
+          default: null
+        last_otp_sent:
+          type: string
+          format: date-time
+          default: null
+        otp_sent_count:
+          type: integer
+          default: 0
+        is_email_verified:
+          type: boolean
+          default: false
+        social_id:
+          type: string
+          default: null
+        dob:
+          type: string
+          format: date
+          default: null
+        country:
+          type: string
+          default: null
+        gender:
+          type: array
+          items:
+            type: integer
+            enum:
+              - 0  # GENDER.NOT_PREFERRED
+              - 1  # GENDER.MALE
+              - 2  # GENDER.FEMALE
+              - 3  # GENDER.NON_BINARY
+              - 4  # GENDER.INTERSEX
+              - 5  # GENDER.TRANSGENDER
+            default: 0
+        last_login:
+          type: string
+          format: date-time
+          default: null
+        isVerified:
+          type: boolean
+          default: false
+        deletedAt:
+          type: string
+          format: date-time
+          default: null
+        job_role:
+          type: string
+          default: null
+        on_board_step:
+          type: integer
+          enum:
+            # Assuming you have ON_BOARD_STEPS defined elsewhere
+            - 0  # ON_BOARD_STEPS.SELECT_FOCUS
+            - 1  # Example: ON_BOARD_STEPS.ANOTHER_STEP
+            - 2  # etc.
+          default: 0
+        is_under_trial:
+          type: boolean
+          default: false
+        trial_starts_from:
+          type: string
+          format: date-time
+          default: null
+        trial_ends_at:
+          type: string
+          format: date-time
+          default: null
+        country_code:
+          type: string
+          default: null
+        mobile:
+          type: string
+          default: null
+        user_added_by:
+          type: string
+          default: null
+        ethnicity:
+          type: string
+          default: null
+        commission:
+          type: number
+          default: null
+        klaviyo_id:
+          type: string
+          default: null
+        report_sent:
+          type: string
+          format: date-time
+          default: null
+        is_audio_feedback_disabled:
+          type: boolean
+          default: false
+      required:
+        - name
+        - password
+        - user_type
+        - account_type
+        - is_email_verified
+        
+
+     
+    
+paths:
+  /admin/v1/login:
+    post:
+      tags:
+        - Shoorah Admin Auth
+
+      summary: Admin Login and Expert Login
+      description: Endpoint for Shoorah Admin to login.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admin@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: otpSentToEmail
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: userNotFound
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: userPasswordNotMatch
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: internalServerError
+
+  /admin/v1/verify-otp:
+    post:
+      tags:
+        - Shoorah Admin Auth
+      summary: Verify Admin OTP
+      description: Verifies the OTP for admin users and Exper users.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'admin@example.com'
+                otp:
+                  type: string
+                  example: '123456'
+      responses:
+        '200':
+          description: OTP verified successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  userType:
+                    type: integer
+                  profile:
+                    type: string
+                  companyId:
+                    type: string
+                  companyType:
+                    type: string
+                  companyName:
+                    type: string
+                  shuruUsage:
+                    type: boolean
+                  peapUsage:
+                    type: boolean
+                  slug:
+                    type: string
+                  moduleAccess:
+                    type: array
+                    items:
+                      type: string
+                  expertApprove:
+                    type: boolean
+                  token:
+                    type: string
+                  refreshToken:
+                    type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'company is restricted, please contact with admin'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'invalidOTP'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Internal Server Error'
+
+  /admin/v1/forget-password:
+    post:
+      tags:
+        - Shoorah Admin Auth
+        - Auth
+      summary: Admin Forget Password
+      description: Sends an OTP to the admin's email for password reset.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'admin@example.com'
+      responses:
+        '200':
+          description: OTP sent to email
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'otpSentToEmail'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'forgotPasswordLimitReached'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'userNotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'accountIsInactive'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Internal Server Error'
+
+  /admin/v1/change-password:
+    post:
+      tags:
+        - Shoorah Admin Auth
+
+      summary: Admin Change Password
+      description: Allows an admin to change their password.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                  example: 'oldPassword123'
+                newPassword:
+                  type: string
+                  example: 'newPassword123'
+      responses:
+        '200':
+          description: Password changed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'changePasswordSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'oldNewPasswordSame'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'oldPasswordNotMatch'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'userNotFound'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Internal Server Error'
+
+  /pod-experts:
+    get:
+      tags:
+        - Shoorah Admin Auth
+        - PODS
+      summary: Get Pod Experts
+      description: Retrieve a list of pod experts or a specific pod expert by ID.
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: The ID of the pod expert to retrieve.
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The page number to retrieve.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The number of items per page.
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: A search keyword to filter pod experts.
+      responses:
+        '200':
+          description: A list of pod experts or a specific pod expert.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metaData:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                  podExperts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PodExpert'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Shoorah Admin Auth
+        - PODS
+      summary: Add Pod Expert
+      description: Add a new pod expert.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddPodExpertRequest'
+      responses:
+        '200':
+          description: Pod expert added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pod-experts/{id}:
+    put:
+      tags:
+        - Shoorah Admin Auth
+        - PODS
+      summary: Update Pod Expert
+      description: Update an existing pod expert.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The ID of the pod expert to update.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdatePodExpertRequest'
+      responses:
+        '200':
+          description: Pod expert updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /get-pod-expert-name-list:
+    get:
+      summary: Get list of Pod Expert names
+      description: Retrieve a list of Pod Expert names with their IDs.
+      tags:
+        - PodExperts
+      responses:
+        200:
+          description: A list of Pod Expert names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The ID of the Pod Expert
+                    name:
+                      type: string
+                      description: The name of the Pod Expert
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+
+  /playlists:
+    post:
+      tags:
+        - Mobile User
+        - Pod Playlist
+      summary: Create Playlist
+      description: Create a new playlist.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                user_id:
+                  type: string
+      responses:
+        '200':
+          description: Playlist created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+        - Mobile User
+        - Pod Playlist
+      summary: Get Playlist
+      description: Retrieve a playlist by user ID or playlist ID.
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: string
+          description: The user ID to filter playlists.
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: The playlist ID to retrieve.
+      responses:
+        '200':
+          description: Playlist retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Playlist'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /playlists/{id}:
+    delete:
+      tags:
+        - Mobile User
+        - Pod Playlist
+      summary: Delete Playlist
+      description: Delete a playlist by ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The ID of the playlist to delete.
+      responses:
+        '200':
+          description: Playlist deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Mobile User
+        - Pod Playlist
+      summary: Update Playlist
+      description: Update an existing playlist.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The ID of the playlist to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Playlist updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /audios:
+    get:
+      tags:
+        - Mobile User
+        - Pod Playlist
+      summary: Get All Audios
+      description: Retrieve all audios with pagination.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The page number to retrieve.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The number of items per page.
+      responses:
+        '200':
+          description: Audios retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudioList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /playlists/{playlistId}/audios:
+    post:
+      tags:
+        - Mobile User
+        - Pod Playlist
+      summary: Add Audio to Playlist
+      description: Add an audio to a playlist.
+      parameters:
+        - in: path
+          name: playlistId
+          required: true
+          schema:
+            type: string
+          description: The ID of the playlist.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audioId:
+                  type: string
+                audioType:
+                  type: string
+      responses:
+        '200':
+          description: Audio added to playlist successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Mobile User
+        - Pod Playlist
+      summary: Remove Audio from Playlist
+      description: Remove an audio from a playlist.
+      parameters:
+        - in: path
+          name: playlistId
+          required: true
+          schema:
+            type: string
+          description: The ID of the playlist.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audioId:
+                  type: string
+                audioType:
+                  type: string
+      responses:
+        '200':
+          description: Audio removed from playlist successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/signup:
+   post:
+    tags:
+      - Expert 
+    summary: Sign Up
+    description: Register a new Expert user.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "test"
+              email:
+                type: string
+                example: "fgfrnbxd@yopmail.com"
+              password:
+                type: string
+                example: "Test@123"
+              userType:
+                type: integer
+                example: 6
+    parameters:
+      - name: devicetype
+        in: header
+        required: true
+        schema:
+          type: integer
+        example: 3
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: null
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 2
+                    message:
+                      type: string
+                      example: "sendForVerification"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /api/v1/verify-link:
+   post:
+    tags:
+      - Expert
+    summary: Verify Email Token
+    description: Verify the email verification token.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            example: {}  # You can replace this with a more detailed example if needed
+    parameters:
+      - name: devicetype
+        in: header
+        required: true
+        schema:
+          type: integer
+        example: 3
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZWQwOWI5ZjMxNDM5ZTRhNzFmN2FhMiIsImlhdCI6MTcyNjgxMDU1MywiZXhwIjoxNzI2ODE0MTUzfQ.57MWPm2bU0vbShG8xL1Xs32_3cat1vBJqwM4TZ-SjEY
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: null
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 1
+                    message:
+                      type: string
+                      example: "emailVerifiedSuccessfully"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /expert/v1/update-profiles:
+   put:
+    tags:
+      - Expert
+    summary: Update the expert's profile information
+    description: Update the expert's profile information.
+    security:
+      - BearerAuth: []  # Apply security scheme
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            example:  
+              firstName: sdfgdzf
+              lastName: zdfg
+              address: sdczsdc
+              ethnicity: Asian
+              jobRole: xyz
+              location: xyz
+              gender: [0]
+              country: ''
+              dob: '01/01/1990'
+              title: mr
+              linkedlnUrl: dvzxvzdsv
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: null
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 1
+                    message:
+                      type: string
+                      example: "expertDataUpdated"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /expert/v1/update-professional:
+   put:
+    tags:
+      - Expert
+    summary: Update the expert's professional information
+    description: Update the expert's professional information.
+    security:
+      - BearerAuth: []  # Apply security scheme
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            example:
+              industryExperience: ["Healthcare"]
+              highestCertification: ["Board Certified"]
+              qualification: "MBBS, MD"
+              language: "English"
+              currentJobTitle: "Chief Surgeon"
+              placeOfEducation: "Harvard Medical School"
+              availability: "zfg"
+              yearOfExperience: "15"
+              specialities: "Cardiology"
+              pricePerHour: "150"
+              medicalNo: "MED123456"
+              locationOfPractice: "New York, USA"
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: null
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 1
+                    message:
+                      type: string
+                      example: "expertDataUpdated"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /expert/v1/identity-verification:
+   get:
+    tags:
+      - Expert
+    summary: Verify the expert's identity
+    description: Retrieve the status of the identity verification for the expert.
+    security:
+      - BearerAuth: []  # Apply security scheme
+    responses:
+      '200':
+        description: Successful response with verification status
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    applicant_id:
+                      type: string
+                      example: "bea61c93-4ed9-4b09-85cf-00873c62ec94"
+                    created_at:
+                      type: string
+                      format: date-time
+                      example: "2024-10-02T11:09:25Z"
+                    customer_user_id:
+                      type: string
+                      example: "bea61c93-4ed9-4b09-85cf-00873c62ec94"
+                    dashboard_url:
+                      type: string
+                      example: "https://dashboard.onfido.com/results/62070f4c-78d2-4c7a-b12d-e4b5df9e14ab"
+                    error:
+                      type: null
+                    id:
+                      type: string
+                      example: "62070f4c-78d2-4c7a-b12d-e4b5df9e14ab"
+                    link:
+                      type: object
+                      properties:
+                        completed_redirect_url:
+                          type: string
+                          example: "http://localhost:5173/signupJourney/complianceAndVerification"
+                        expired_redirect_url:
+                          type: string
+                          example: "http://localhost:5173/signupJourney/complianceAndVerification"
+                        expires_at:
+                          type: null
+                        language:
+                          type: null
+                        url:
+                          type: string
+                          example: "https://eu.onfido.app/l/62070f4c-78d2-4c7a-b12d-e4b5df9e14ab"
+                    output:
+                      type: null
+                    reasons:
+                      type: array
+                      items:
+                        type: string
+                    sdk_token:
+                      type: string
+                      example: "eyJhbGciOiAiRVM1MTIifQ..."
+                    status:
+                      type: string
+                      example: "awaiting_input"
+                    tags:
+                      type: array
+                      items:
+                        type: string
+                    updated_at:
+                      type: string
+                      format: date-time
+                      example: "2024-10-02T11:09:26Z"
+                    workflow_id:
+                      type: string
+                      example: "95e266ab-0bab-4a9d-ba43-69b51258c79c"
+                    workflow_version_id:
+                      type: integer
+                      example: 3
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 1
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /expert/v1/doc-verification:
+   put:
+    tags:
+      - Expert
+    summary: Verify documents for an expert
+    description: Uploads documents for verification for the specified expert.
+    security:
+      - BearerAuth: []  # Apply security scheme
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              docType:
+                type: string
+                example: "dbs"
+              fileTitle:
+                type: string
+                example: "national id"
+              file:
+                type: string
+                format: binary
+              reasonToJoin:
+                type: string
+                example: "test1"
+              bio:
+                type: string
+                example: "test"
+    responses:
+      '200':
+        description: Successful document verification
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: null
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 1
+                    message:
+                      type: string
+                      example: "fileUploadSuccess"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /expert/v1/profile:
+   get:
+    tags:
+      - Expert
+    summary: Retrieve expert profile information
+    description: Get the profile information of the expert.
+    security:
+      - BearerAuth: []  # Apply security scheme
+    responses:
+      '200':
+        description: Successful retrieval of profile information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      example: "Mr"
+                    firstName:
+                      type: string
+                      example: "test"
+                    lastName:
+                      type: string
+                      example: "test"
+                    dob:
+                      type: string
+                      example: "01/01/1990"
+                    gender:
+                      type: array
+                      items:
+                        type: integer
+                      example: [0]
+                    ethnicity:
+                      type: string
+                      example: "ethnicity"
+                    location:
+                      type: string
+                      example: "surat"
+                    linkedlnUrl:
+                      type: string
+                      example: "linkedlnUrl"
+                    applicantId:
+                      type: string
+                      example: "bea61c93-4ed9-4b09-85cf-00873c62ec94"
+                    currentJobTitle:
+                      type: string
+                      example: "Chief Surgeon"
+                    language:
+                      type: string
+                      example: "English"
+                    medicalNo:
+                      type: string
+                      example: "MED123456"
+                    placeOfEducation:
+                      type: string
+                      example: "Harvard Medical School"
+                    pricePerHour:
+                      type: string
+                      example: "150"
+                    qualification:
+                      type: string
+                      example: "MBBS, MD"
+                    specialities:
+                      type: string
+                      example: "Cardiology"
+                    yearOfExperience:
+                      type: string
+                      example: "15"
+                    bio:
+                      type: string
+                      example: "test"
+                    documents:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          docType:
+                            type: string
+                            example: "dbs"
+                          fileUrl:
+                            type: string
+                            example: "https://staging-media.shoorah.io/expert/docs/1727867487-1810.png"
+                          id:
+                            type: string
+                            example: "66fd2a6078b195b34b12117d"
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 1
+                    message:
+                      type: string
+                      example: "profileFetched"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /expert/v1/find-status:
+   get:
+    tags:
+      - Expert
+    summary: Check the status of a specific process
+    description: Retrieve the status of an ongoing process for the expert.
+    security:
+      - BearerAuth: []  # Apply security scheme
+    responses:
+      '200':
+        description: Successful retrieval of status information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    applicant_id:
+                      type: string
+                      example: "bea61c93-4ed9-4b09-85cf-00873c62ec94"
+                    created_at:
+                      type: string
+                      example: "2024-10-02T11:09:25Z"
+                    customer_user_id:
+                      type: string
+                      example: "bea61c93-4ed9-4b09-85cf-00873c62ec94"
+                    dashboard_url:
+                      type: string
+                      example: "https://dashboard.onfido.com/results/62070f4c-78d2-4c7a-b12d-e4b5df9e14ab"
+                    error:
+                      type: string
+                      nullable: true
+                      example: null
+                    id:
+                      type: string
+                      example: "62070f4c-78d2-4c7a-b12d-e4b5df9e14ab"
+                    link:
+                      type: object
+                      properties:
+                        completed_redirect_url:
+                          type: string
+                          example: "http://localhost:5173/signupJourney/complianceAndVerification"
+                        expired_redirect_url:
+                          type: string
+                          example: "http://localhost:5173/signupJourney/complianceAndVerification"
+                        expires_at:
+                          type: string
+                          nullable: true
+                          example: null
+                        language:
+                          type: string
+                          nullable: true
+                          example: null
+                        url:
+                          type: string
+                          example: "https://eu.onfido.app/l/62070f4c-78d2-4c7a-b12d-e4b5df9e14ab"
+                    output:
+                      type: string
+                      nullable: true
+                      example: null
+                    reasons:
+                      type: array
+                      items:
+                        type: string
+                      example: []
+                    sdk_token:
+                      type: string
+                      example: "eyJhbGciOiAiRVM1MTIifQ.eyJpc3MiOiAic3R1ZGlvIiwgImF1ZCI6ICJlMGYwYTY1Yi1iM2Q4LTRiMWItYmNmMy0zZjdmOWFhZjg3NzYiLCAic3ViIjogIjYyMDcwZjRjLTc4ZDItNGM3YS1iMTJkLWU0YjVkZjllMTRhYiIsICJpYXQiOiAxNzI3ODY3MzY1LCAianRpIjogInN0dWRpby02MjA3MGY0Yy03OGQyLTRjN2EtYjEyZC1lNGI1ZGY5ZTE0YWIiLCAiZXhwIjogMTczMDg5MTM2NSwgInBheWxvYWQiOiB7ImFwcCI6ICJiZWE2MWM5My00ZWQ5LTRiMDktODVjZi0wMDg3M2M2MmVjOTQiLCAiYXBwbGljYXRpb25faWQiOiAiKiIsICJjbGllbnRfdXVpZCI6ICJlMGYwYTY1Yi1iM2Q4LTRiMWItYmNmMy0zZjdmOWFhZjg3NzYiLCAiaXNfc2FuZGJveCI6IHRydWUsICJpc19zZWxmX3NlcnZpY2VfdHJpYWwiOiB0cnVlLCAiaXNfdHJpYWwiOiB0cnVlLCAic2FyZGluZV9zZXNzaW9uIjogIjM2NmRhZjgzLWNhMWEtNDU1Yy1iMDdmLTMxMGNmMTcxZjBlYSIsICJjdXN0b21lcl91c2VyX2hhc2giOiAiK0NMZWx1aHFhV2RIU1Z0RWhNSFJwaGhOM3pEVmJUUWRtWW11aUFtWHFPTT0ifSwgInVybHMiOiB7InN5bmNfdXJsIjogImh0dHBzOi8vc3luYy5vbmZpZG8uY29tIiwgImhvc3RlZF9zZGtfdXJsIjogImh0dHBzOi8vaWQub25maWRvLmNvbSIsICJhdXRoX3VybCI6ICJodHRwczovL2FwaS5ldS5vbmZpZG8uY29tIiwgIm9uZmlkb19hcGlfdXJsIjogImh0dHBzOi8vYXBpLmV1Lm9uZmlkby5jb20iLCAidGVsZXBob255X3VybCI6ICJodHRwczovL2FwaS5ldS5vbmZpZG8uY29tIn19.MIGIAkIBB6cUhFymHj8WBtWPBj7G9cu680I393b_MexmtGACiyg9s8HMy9uhD1VhczD9FwOSBgOwLPvtEnyTC5heFhEzFVICQgEtuT2qZk7N84tk78-i4voYYa0Q1AVUFdDQVZjFhhLjkf2O90Q50hnSOjwBxr1Nc47j5-n6NY22kej9ou1RWbtERQ"
+                    status:
+                      type: string
+                      example: "approved"
+                    tags:
+                      type: array
+                      items:
+                        type: string
+                      example: []
+                    updated_at:
+                      type: string
+                      example: "2024-10-02T11:10:56Z"
+                    workflow_id:
+                      type: string
+                      example: "95e266ab-0bab-4a9d-ba43-69b51258c79c"
+                    workflow_version_id:
+                      type: integer
+                      example: 3
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 1
+                    message:
+                      type: string
+                      example: "fetchStatus"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /expert/v1/create-interview-schedule:
+   post:
+    tags:
+      - Expert
+    summary: Create an interview schedule
+    description: Schedule an interview for the expert.
+    security:
+      - BearerAuth: []  # Apply security scheme
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              schedualDate:
+                type: string
+                format: date
+                example: "2024-10-02"
+              timeSlot:
+                type: string
+                example: "03:30 PM"
+    responses:
+      '201':
+        description: Interview schedule created successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: "66fd2ac478b195b34b1211c3"
+                    user_id:
+                      type: string
+                      example: "66fd28db78b195b34b1210dc"
+                    invited_by:
+                      type: string
+                      example: "66f40eeefa623c78478763d7"
+                    createdAt:
+                      type: string
+                      format: date-time
+                      example: "2024-10-02T11:13:08.847Z"
+                    updatedAt:
+                      type: string
+                      format: date-time
+                      example: "2024-10-02T11:14:31.819Z"
+                    __v:
+                      type: integer
+                      example: 0
+                    schedual_date:
+                      type: string
+                      format: date-time
+                      example: "2024-10-02T00:00:00.000Z"
+                    time_slot:
+                      type: string
+                      example: "03:30 PM"
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 1
+                    message:
+                      type: string
+                      example: "interviewSchedualCreated"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /expert/v1/get-interview-schedule:
+   get:
+    tags:
+      - Expert
+    summary: Retrieve an interview schedule
+    description: Get the interview schedule for a specific user.
+    security:
+      - BearerAuth: []  # Apply security scheme
+    parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "66f6475eb497a53e6b9bad2e"
+    responses:
+      '200':
+        description: Successful retrieval of interview schedule
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  example: "66f6475eb497a53e6b9bad2e"
+                schedules:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "66f69e88a46e63e45793cecc"
+                      user_id:
+                        type: string
+                        example: "66f6475eb497a53e6b9bad2e"
+                      invited_by:
+                        type: string
+                        example: "66f40eeefa623c78478763d7"
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-09-27T12:01:12.561Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-09-30T05:10:57.772Z"
+                      __v:
+                        type: integer
+                        example: 0
+                      schedual_date:
+                        type: string
+                        format: date-time
+                        example: "2024-09-27T00:00:00.000Z"
+                      time_slot:
+                        type: string
+                        example: "12:30PM"
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  /admin/v1/expert-profile-action:
+   post:
+    tags:
+      - Admin
+    summary: Perform an action on an expert's profile
+    description: This API allows administrators to change the status of an expert's profile. Admins can `approve, reject, or invite` experts for interviews. 
+    security:
+      - BearerAuth: [] 
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              expertId:
+                type: string
+                example: "66fb95a39c7dcd3e44009432"
+              profileAction:
+                type: integer
+                example: 3
+              rejectReason:
+                type: string
+                example: "test"
+    responses:
+      '200':
+        description: Profile action performed successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: 'null'
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 1
+                    message:
+                      type: string
+                      example: "ExpertProfileInvited"
+      '400':
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: 'null'
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 400
+                    message:
+                      type: string
+                      example: "Invalid input or missing required fields."
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: 'null'
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 401
+                    message:
+                      type: string
+                      example: "Unauthorized access."
+      '404':
+        description: Expert profile not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: 'null'
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 404
+                    message:
+                      type: string
+                      example: "Expert profile not found."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: 'null'
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 500
+                    message:
+                      type: string
+                      example: "Internal Server Error."
+
+                      
+  /admin/v1/get-expert-account-info:
+     get:
+      tags:
+        - Admin
+      summary: Retrieve expert account information
+      description: Get detailed account information for a specified expert by their ID.
+      security:
+        - BearerAuth: []  # Apply security scheme
+      parameters:
+        - name: expertId
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "66fb95a39c7dcd3e44009432"
+        - name: Accept
+          in: header
+          required: true
+          schema:
+            type: string
+          example: 'application/json'
+      responses:
+        '200':
+          description: Successful retrieval of expert account information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  expertId:
+                    type: string
+                    example: "66fb95a39c7dcd3e44009432"
+                  name:
+                    type: string
+                    example: "John Doe"
+                  email:
+                    type: string
+                    example: "john.doe@example.com"
+                  phone:
+                    type: string
+                    example: "+1234567890"
+                  status:
+                    type: string
+                    example: "active"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: "Unauthorized access."
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: "Internal Server Error"
+
+  /admin/v1/get-expert-status-list:
+   get:
+    tags:
+      - Admin
+    summary: Retrieve a list of expert statuses
+    description: Get a paginated list of expert statuses with the specified page and number of items per page.
+    security:
+      - BearerAuth: []  # Apply security scheme
+    parameters:
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: perPage
+        in: query
+        required: true
+        schema:
+          type: integer
+        example: 50
+      - name: Accept
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 'application/json'
+    responses:
+      '200':
+        description: Successful retrieval of expert status list
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "66fb95a39c7dcd3e44009432"
+                      profile_status:
+                        type: integer
+                        example: 0
+                      userDetails:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: "paresh"
+                          email:
+                            type: string
+                            example: "soft.devvv@gmail.com"
+                          createdAt:
+                            type: string
+                            example: "2024-10-01T06:16:31.255Z"
+                      scheduleDetails:
+                        type: object
+                        nullable: true
+                        properties:
+                          schedual_date:
+                            type: string
+                            example: "2024-10-03T00:00:00.000Z"
+                          time_slot:
+                            type: string
+                            example: "2:30pm"
+                meta:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      example: "fetchExpertStatusList"
+                    message:
+                      type: integer
+                      example: 1
+                    page:
+                      type: string
+                      example: "2"
+                    perPage:
+                      type: string
+                      example: 30
+                    totalCount:
+                      type: integer
+                      example: 6
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 401
+                message:
+                  type: string
+                  example: "Unauthorized access."
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 500
+                message:
+                  type: string
+                  example: "Internal Server Error."
+
+  
+    
+
+    
+

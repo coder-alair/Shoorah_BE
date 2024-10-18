@@ -1,0 +1,386 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap' rel='stylesheet')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js')
+    title shoorah PDF
+  body
+    div(style='width: 800px;height: 1024px;margin: auto;')
+      // A4 size
+      div(style='border: 2px solid #4A56DB;')
+      div(style='padding: 30px 30px 0px 30px;')
+        div(style='display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div
+            h1(style="font-family: 'Poppins';width: auto;height: 21px;font-style: normal;font-weight: 400;font-size: 14px;line-height: 21px;color: #18202F;margin: 0;")
+              | Name: 
+              span(style='font-weight: 500;')
+                i #{locals.name}
+          div
+            img(src='https://d12231i07r54en.cloudfront.net/app_configs/pdf_shoorah_logo.png' alt='shoorah-logo' style='width: 120px;height: 20px;')
+        div(style='display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%;height: 41px;background: #4A56DB;border-radius: 10px;margin: 20px 0px 25px 0px;')
+          p(style="width: auto;height: 21px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #FFFFFF;margin: 0;")
+            | #{locals.fromDate} - #{locals.toDate}
+        div(style='margin:0px 0px 30px 0px;width: 95%;height: auto;display: flex;flex-direction: row;align-items: center;justify-content: center;')
+           div(style='width: 100%;height: auto;')
+             h1(style="font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 26px;line-height: 24px;width: auto;height: 24px;\
+              color: #18202F;margin: 0;text-align: center;") Overall Well Being Mood Report
+           
+        div(style='width: 95%;height: auto;margin: auto;display: flex;flex-direction: row;align-items: center;justify-content: space-between;')  
+          div(style='width: 47.5%;height: auto;')
+            div(style='width: 100%;height: auto;')
+              h1(style="font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 24px;width: auto;height: 24px;color: #18202F;margin: 0;text-align: center;")
+                | Negative Feelings Score
+              div(style='display: flex;justify-content: center;align-items: center;margin-top: 25px;')
+                div(style='width: 100%;height: auto;')
+                  div(style='position: relative;')
+                    canvas#negativeChart(style='width:100%;max-width:600px;')
+                    img(src= locals.sadSmallIcon alt='error' style='position: absolute;top: 63px;left: 145px;')
+                  div(style='width: 100%;height: auto;margin: 25px 0px 0px 50px;')
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #61A5F4;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[0].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Demotivated (#{personalData.moodCounts.demotivated})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #2A9D8F;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[1].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Low (#{personalData.moodCounts.low})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F4A261;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[6].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Angry (#{personalData.moodCounts.angry})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#E9C46A;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[3].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | I Need Support (#{personalData.moodCounts.needSupport})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#8B5CF6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[4].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Helpless (#{personalData.moodCounts.helpless})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#ADD8E6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[5].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Tired (#{personalData.moodCounts.tired})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F08080;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[7].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Anxious (#{personalData.moodCounts.anxious})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F46196;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[8].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Stressed (#{personalData.moodCounts.stressed})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#0b1426bd;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[2].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Sad (#{personalData.moodCounts.sad})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#6cb259;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averageNegativeMoodsPercentage[9].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Not Good (#{personalData.moodCounts.notGood})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #61A5F4;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[0].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Dissatisfied (#{professionalData.moodCounts.dissatisfied})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #2A9D8F;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[1].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Unpleasant (#{professionalData.moodCounts.unpleasant})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F4A261;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[6].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Negative (#{professionalData.moodCounts.negative})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#E9C46A;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[3].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Poor (#{professionalData.moodCounts.poor})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#8B5CF6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[4].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Unmanageable (#{professionalData.moodCounts.unmanageable})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#ADD8E6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[5].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Lacking (#{professionalData.moodCounts.lacking})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F08080;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[7].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Unsupported (#{professionalData.moodCounts.unsupported})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F46196;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[8].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Insufficient (#{professionalData.moodCounts.insufficient})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 90px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#0b1426bd;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[2].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Overwhelming (#{professionalData.moodCounts.overwhelming})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#6cb259;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averageNegativeMoodsPercentage[9].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Inadequate (#{professionalData.moodCounts.inadequate})
+                  
+                  li(style="margin: 0px;width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 18px;color: #18202F;margin-top: 35px;")
+                    | Average negative Score: 
+                    span(style='color: #F04438;font-size: 18px;') #{data.moodsPercentNegative}%
+          div(style='border: 1px dashed #B6C0F3;height: 593px;')
+          div(style='width: 47.5%;height: auto;')
+            div(style='width: 100%;height: auto;')
+              h1(style="font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 24px;width: auto;height: 24px;\
+              color: #18202F;margin: 0;text-align: center;") Positive Feelings Score
+              div(style='display: flex;justify-content: center;align-items: center;margin-top: 25px;')
+                div(style='width: 100%;height: auto;')
+                  div(style='position: relative;')
+                    canvas#positiveChart(style='width:100%;max-width:600px;')
+                    img(src= locals.happySmallIcon alt='Happy Icon' style='position: absolute;top: 63px;left: 145px;')
+                  div(style='width: 100%;height: auto;margin: 25px 0px 0px 50px;')
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #61A5F4;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averagePositiveMoodsPercentage[0].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Motivated (#{personalData.moodCounts.motivated})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #2A9D8F;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{personalData.averagePositiveMoodsPercentage[1].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Content (#{personalData.moodCounts.content})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F4A261;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{personalData.averagePositiveMoodsPercentage[2].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Happy (#{personalData.moodCounts.happy})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#E9C46A;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{personalData.averagePositiveMoodsPercentage[3].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | I can manage (#{personalData.moodCounts.iCanManage})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#8B5CF6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{personalData.averagePositiveMoodsPercentage[4].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | I’m in control (#{personalData.moodCounts.iAmInControl})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#ADD8E6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{personalData.averagePositiveMoodsPercentage[5].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Energised (#{personalData.moodCounts.energised})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F08080;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{personalData.averagePositiveMoodsPercentage[6].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Calm (#{personalData.moodCounts.calm})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F46196;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{personalData.averagePositiveMoodsPercentage[8].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Balanced (#{personalData.moodCounts.balanced})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#0b1426bd;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{personalData.averagePositiveMoodsPercentage[7].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Relaxed (#{personalData.moodCounts.relaxed})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 0px 0px 15px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#6cb259;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{personalData.averagePositiveMoodsPercentage[9].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Great (#{personalData.moodCounts.great})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #61A5F4;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averagePositiveMoodsPercentage[0].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Very Satisfied (#{professionalData.moodCounts.verySatisfied})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background: #2A9D8F;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{professionalData.averagePositiveMoodsPercentage[1].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Positive (#{professionalData.moodCounts.positive})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F4A261;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{professionalData.averagePositiveMoodsPercentage[2].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Comfortable (#{professionalData.moodCounts.comfortable})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#E9C46A;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          | #{professionalData.averagePositiveMoodsPercentage[3].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Supportive (#{professionalData.moodCounts.supportive})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#8B5CF6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{professionalData.averagePositiveMoodsPercentage[4].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Manageable (#{professionalData.moodCounts.manageable})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#ADD8E6;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{professionalData.averagePositiveMoodsPercentage[5].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Excellent (#{professionalData.moodCounts.excellent})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F08080;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{professionalData.averagePositiveMoodsPercentage[6].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Inclusive (#{professionalData.moodCounts.inclusive})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#F46196;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{professionalData.averagePositiveMoodsPercentage[8].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Well Equipped (#{professionalData.moodCounts.wellEquipped})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 90px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#0b1426bd;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{professionalData.averagePositiveMoodsPercentage[7].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Highly Supported (#{professionalData.moodCounts.highlySupported})
+                    div(style='display: flex;flex-direction: row;align-items: center;margin: 10px 0px 0px 0px;')
+                      div(style='display: flex;justify-content: center;align-items: center;width: 60px;height: 25px;background:#6cb259;border-radius: 40px;')
+                        p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 12px;line-height: 18px;color: #FFFFFF;margin: 0px;")
+                          |  #{professionalData.averagePositiveMoodsPercentage[9].value}%
+                      p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #18202F;margin: 0px 0px 0px 10px;")
+                        | Comprehensive (#{professionalData.moodCounts.comprehensive})
+            
+                  li(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 18px;color: #18202F;margin-top: 35px;")
+                    | Average positive Score: 
+                    span(style='color: #12B76A;font-size: 18px;') #{data.moodsPercentPositive}%
+        div(style='margin: 70px 0px 0px 0px;width: 95%;height: auto;border: 1px dashed rgba(24, 32, 47, 0.4);\
+        border-radius: 10px;padding: 16px;display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div(style='display: flex;flex-direction: column;justify-content: space-between;width: 70%;height: auto;')
+            h1(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 18px;text-align: left;color: #18202F;margin: 0;")
+              | Final Message:
+            p(style="width: 100%;height: 54px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;text-align: left;                    \
+            color: #18202F;margin: 10px 0px 0px 0px;")
+              | #{locals.finalMessage}
+              //- | For the dates/period you choose, your score is 60-100% and you should be very proud you are in a
+              //- | small minority of humans that are very happy with themselves and with their life. WELL DONE
+          div(style='display: flex;flex-direction: column;align-items: center;justify-content: space-between;')
+            img(src=locals.finalIcon alt='happy.svg' style='width:80px; height:80px;')
+            p(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: center;\
+            color: #18202F;margin: 0;") #{locals.finalIconText}
+        div(style='margin-top: 30px;width: 100%;height: auto;')
+          p(style="margin: 0;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 11px;line-height: 14px;color: #727272;")
+            span(style="color:#18202F;") Disclamier:
+            |  The mood score shown here is intended for informational purposes only and is not
+            |                     a
+            |                     substitute for professional medical advice, diagnosis, or treatment. The score is based on your
+            |                     self-reported mood and may not accurately reflect your true mental or emotional state. Shoorah is
+            |                     not authorized or regulated to provide official medical or mental health advice. The Shoorah ME
+            |                     section was built for users to track a variety of moods and emotions, but not all. If you are
+            |                     experiencing any emotional or mental health conditions and have concerns, please seek the advice of
+            |                     a qualified healthcare professional. By using the ME section, you agree to release the developer
+            |                     from any liability arising from your use of our application.
+        p(style="margin: 30px 0px 10px 0px;text-align: center;width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 300;font-size: 13px;line-height: 15px;color: #727272;")
+          | This report is generated from the Shoorah Ltd mobile app ❤️
+    script.
+      //- var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+      const yNegativeValues = [#{personalData.moodCounts.demotivated}, #{personalData.moodCounts.low}, #{personalData.moodCounts.angry}, #{personalData.moodCounts.needSupport}, #{personalData.moodCounts.helpless}, #{personalData.moodCounts.tired},#{personalData.moodCounts.anxious}, #{personalData.moodCounts.stressed},#{personalData.moodCounts.sad},#{personalData.moodCounts.notGood},#{professionalData.moodCounts.dissatisfied}, #{professionalData.moodCounts.unpleasant}, #{professionalData.moodCounts.overwhelming}, #{professionalData.moodCounts.poor}, #{professionalData.moodCounts.unmanageable},#{professionalData.moodCounts.lacking}, #{professionalData.moodCounts.negative},#{professionalData.moodCounts.unsupported},#{professionalData.moodCounts.insufficient}, #{professionalData.moodCounts.inadequate}];
+      const yPositiveValues = [#{personalData.moodCounts.motivated}, #{personalData.moodCounts.content}, #{personalData.moodCounts.happy}, #{personalData.moodCounts.iCanManage}, #{personalData.moodCounts.iAmInControl}, #{personalData.moodCounts.energised},#{personalData.moodCounts.calm}, #{personalData.moodCounts.balanced},#{personalData.moodCounts.relaxed},#{personalData.moodCounts.great},#{professionalData.moodCounts.verySatisfied}, #{professionalData.moodCounts.positive}, #{professionalData.moodCounts.comfortable}, #{professionalData.moodCounts.supportive}, #{professionalData.moodCounts.manageable},#{professionalData.moodCounts.excellent}, #{professionalData.moodCounts.inclusive},#{professionalData.moodCounts.highlySupported},#{professionalData.moodCounts.wellEquipped}, #{professionalData.moodCounts.comprehensive}];
+      const barColors = [
+      "#61A5F4",
+      "#2A9D8F",
+      "#F4A261",
+      "#E9C46A",
+      "#8B5CF6",
+      "#ADD8E6",
+      "#F08080",
+      "#F46196",
+      "#0b1426",
+      "#6cb259",
+      "#FF5733",
+      "#FFD700",
+      "#228B22",
+      "#BA55D3",
+      "#4169E1",
+      "#FF6347",
+      "#20B2AA",
+      "#FF1493",
+      "#FF4500",
+      "#8A2BE2",
+      ];
+      new Chart("negativeChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: barColors,
+      data: yNegativeValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });
+      new Chart("positiveChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: barColors,
+      data: yPositiveValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });

@@ -1,0 +1,80 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap' rel='stylesheet')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js')
+    title shoorah PDF
+  body
+    div(style='width: 800px;height: 1024px;margin: auto;')
+      // A4 size
+      div(style='border: 2px solid #4A56DB;')
+      div(style='padding: 30px 30px 0px 30px;')
+        div(style='display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div
+            h1(style="font-family: 'Poppins';width: auto;height: 21px;font-style: normal;font-weight: 400;font-size: 16px;line-height: 21px;color: #18202F;margin: 0;")
+              | Intervention Button Report 
+          div
+            img(src='https://d12231i07r54en.cloudfront.net/app_configs/pdf_shoorah_logo.png' alt='shoorah-logo' style='width: 120px;height: 20px;')
+        div(style='display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%;height: 41px;background: #4A56DB;border-radius: 10px;margin: 40px 0px 30px 0px;')
+          p(style="width: auto;height: 21px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #FFFFFF;margin: 0;")
+            | #{locals.fromDate} - #{locals.toDate}
+        div(style='position:relative;margin: 50px 0px 0px 0px;width: 95%;height: 250px;border: 1px dashed rgba(24, 32, 47, 0.4);\
+        border-radius: 10px;padding: 16px;display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div(style='display: flex;flex-direction: column;justify-content: space-between;width: 70%;height: auto;')
+            h1(style="width: auto;height: auto;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 16px;line-height: 30px;text-align: left;color: #18202F;margin: 0;")
+              | The Intervention Button:
+            p(style="width: 100%;height: 54px;font-family:Poppins;font-style: normal;font-weight: 400;font-size: 16px;line-height: 18px;text-align: left;                    \
+            color: #18202F;margin: 10px 0px 0px 0px;")
+              | #{locals.finalMessage}
+            p(style="width: 100%;height: 54px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;text-align: left;                    \
+            color: #18202F;margin: 40px 0px 10px 0px;")
+              | #{locals.secondMessage}
+          div(style='position:absolute;top:15px;right:20px;display: flex;margin: 0px 0px 0px 0px')
+           div(style='height:80px;width:80px;display:flex;justify-content:center;align-items:center;background-color:red;border-radius:100%;')
+            p(style="width: auto;font-family: 'Poppins';color:#fff;font-style: normal;font-weight: 600;font-size: 24px;text-align: center;margin: 0px 0px 0px 0px;")
+              | SOS
+      
+        div(style='display: flex;width:100%;flex-direction:row;gap:20px;justify-content:center;margin: 40px 0px 0px 0px;')
+            div(style='height:300px;width:50%;border-radius:10px;padding-left:20px;padding-right:20px;background-color:#6167E8;display:flex;flex-direction:column;')
+             p(style='font-family:Poppins;margin-bottom:20px;width:100%;color:#fff;font-size:28px')
+               | Total Clicks
+             p(style='width:100%;margin-bottom:20px;color:#fff;font-size:38px;font-weight:bold')
+               | #{locals.sosClicks}
+             div(style='width: 100%; height: 20px; margin-bottom: 20px; background-color: #ffffff; overflow: hidden;')
+                div(style=`width: ${(locals.sosClicks / locals.totalSosClicks) * 100}%; height: 100%; background-color: #313B6B;`)
+             div(style=`width: 25%;position:relative;border-radius:10px; height:30px;display:flex;align-items:center;flex-direction:row; background-color: #313B6B;`)
+                p(style='padding-left:10px;color:#fff;font-size:16px;font-weight:bold')
+                 | #{locals.sosIncrease?`↗`:`↘`} #{locals.sosPercent}%
+                p(style='position:absolute;right:-180px;padding-left:10px;color:#fff;font-size:16px;font-weight:bold')
+                 | #{locals.monthText}
+            div(style='height:300px;width:50%;border-radius:10px;padding-left:20px;padding-right:20px;display:flex;flex-direction:column;background-color:#313B6B;')
+             p(style='height:auto;font-family:Poppins;margin-bottom:20px;width:100%;color:#fff;font-size:28px')
+               | Total Calls Taken
+             p(style='height:auto;width:100%;margin-bottom:20px;;color:#fff;font-size:38px;font-weight:bold')
+               | #{locals.sosPhone}
+             div(style='width: 100%; height: 20px;  margin-bottom: 20px; background-color: #ffffff; overflow: hidden;')
+                div(style=`width: ${(locals.sosPhone / locals.totalPhoneClicks) * 100}%; height: 100%; background-color: #6167E8;`)
+             div(style=`width: 25%;position:relative;border-radius:10px; height:30px;display:flex;align-items:center;flex-direction:row; background-color: #6167E8;`)
+                p(style='padding-left:10px;color:#fff;font-size:16px;font-weight:bold')
+                 | #{locals.phoneIncrease?`↗`:`↘`} #{locals.phonePercent}%
+                p(style='position:absolute;right:-180px;padding-left:10px;color:#fff;font-size:16px;font-weight:bold')
+                 | #{locals.monthText}
+        div(style='display: flex;width:100%;flex-direction:row;gap:14px;justify-content:center;margin: 40px 0px 0px 0px;')
+            div(style='height:200px;width:100%;border-radius:10px;padding-left:20px;padding-right:20px;background-color:#6167E8;display:flex;flex-direction:column;')
+             p(style='font-family:Poppins;margin-bottom:20px;width:100%;color:#fff;font-size:28px')
+               | Total Users
+             p(style='width:100%;margin-bottom:20px;color:#fff;font-size:38px;font-weight:bold')
+               | #{locals.uniqueSosPhoneUsers}
+             div(style='width: 100%; height: 20px; margin-bottom: 20px; background-color: #ffffff; overflow: hidden;')
+                div(style=`width: ${(locals.uniqueSosPhoneUsers / locals.totalSosClicks) * 100}%; height: 100%; background-color: #313B6B;`)
+                
+        div(style='margin-top: 30px;width: 100%;height: auto;')
+          p(style="margin: 0;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 11px;line-height: 14px;color: #727272;")
+        p(style="margin: 280px 0px 10px 0px;text-align: center;width: auto;height: auto;font-family: Poppins;font-style: normal;font-weight: 300;font-size: 13px;line-height: 15px;color: #727272;")
+          | This Intervention report is generated from the Shoorah Ltd mobile app ❤️
+    script.

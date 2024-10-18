@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "shoorah",
+      "package_name": "com.shoorah",
+      "sha256_cert_fingerprints": [
+        "6E:EA:8A:52:09:34:A1:3C:F1:1F:81:94:6F:F4:48:E8:94:47:ED:6D:77:91:A6:AE:05:C4:CF:F1:98:E2:0D:49",
+        "3C:DB:70:CE:4A:16:8E:04:F7:67:9D:D7:83:6B:4F:73:9C:41:4C:3C:75:40:40:66:38:0E:19:41:A2:DB:73:A5"
+      ]
+    }
+  }
+]

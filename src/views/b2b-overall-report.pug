@@ -1,0 +1,303 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap' rel='stylesheet')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js')
+    title shoorah PDF
+  body
+    div(style='width: 800px;height: 1024px;margin: auto;')
+      // A4 size
+      div(style='border: 2px solid #4A56DB;')
+      div(style='padding: 30px 30px 0px 30px;')
+        div(style='display: flex;flex-direction: row;justify-content: space-between;align-items: center;')
+          div
+            h1(style="font-family: 'Poppins';width: auto;height: 21px;font-style: normal;font-weight: 400;font-size: 16px;line-height: 21px;color: #18202F;margin: 0;")
+              | B2B Overall Report 
+          div
+            img(src='https://d12231i07r54en.cloudfront.net/app_configs/pdf_shoorah_logo.png' alt='shoorah-logo' style='width: 120px;height: 20px;')
+        div(style='display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%;height: 41px;background: #3a47ab;border-radius: 10px;margin: 40px 0px 10px 0px;')
+          p(style="width: auto;height: 21px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #FFFFFF;margin: 0;")
+            | Report generated on  #{locals.issuedAt}
+        div(style='position:relative;margin: 0px 0px 0px 0px;width: 100%;height: 200px;\
+        border-radius: 10px;padding:0px 0px 0px 0px;display: flex;flex-direction: row;justify-content: center;')
+          div(style='padding:0px 20px;display: flex;flex-direction: flex;gap:30px;width: 100%;height: auto;')
+            div(style='padding:15px 0px;display: flex;flex-direction: column;justify-content:space-between;')
+              p(style="width: auto;height: 21px;text-align:center;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #000;margin: 0;")
+                | All Companies 
+              canvas#companiesChart(style='margin:0px 0px 0px 0px;width:100%;max-width:100px;')
+              div(style='display: flex;flex-direction: flex;gap:10px;align-items:center;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#61A5F4;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #61A5F4;margin: 0px;")
+                  |  Active  (#{locals.companyData.activeCompanies})
+              div(style='display: flex;flex-direction: flex;align-items:center;gap:10px;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#2A9D8F;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #2A9D8F;margin: 0px;")
+                  |  Inactive (#{locals.companyData.inactiveCompanies})
+            div(style='padding:15px 0px;display: flex;align-items:center;flex-direction: column;justify-content:space-between;')
+              p(style="width: auto;height: 21px;text-align:center;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #000;margin: 0;")
+                | Companies in negotiation 
+              canvas#negoChart(style='margin:0px 0px 0px 0px;width:100%;max-width:100px;')
+              div(style='display: flex;flex-direction: flex;gap:10px;align-items:center;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#F4A261;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #F4A261;margin: 0px;")
+                  |  Active  (#{locals.companyData.negotiationActive})
+              div(style='display: flex;flex-direction: flex;align-items:center;gap:10px;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#FFA836;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #FFA836;margin: 0px;")
+                  |  Inactive (#{locals.companyData.negotiationInactive})
+            div(style='padding:15px 0px;display: flex;align-items:center;flex-direction: column;justify-content:space-between;')
+              p(style="width: auto;height: 21px;text-align:center;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #000;margin: 0;")
+                | Company signed 
+              canvas#signChart(style='margin:0px 0px 0px 0px;width:100%;max-width:100px;')
+              div(style='display: flex;flex-direction: flex;gap:10px;align-items:center;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#ad2829;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #ad2829;margin: 0px;")
+                  |  Active  (#{locals.companyData.signedActive})
+              div(style='display: flex;flex-direction: flex;align-items:center;gap:10px;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#e79d88;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #e79d88;margin: 0px;")
+                  |  Inactive (#{locals.companyData.signedInactive})
+            div(style='padding:15px 0px;display: flex;align-items:center;flex-direction: column;justify-content:space-between;')
+              p(style="width: auto;height: 21px;text-align:center;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #000;margin: 0;")
+                | B2B Users 
+              canvas#b2bChart(style='margin:0px 0px 0px 0px;width:100%;max-width:100px;')
+              div(style='display: flex;flex-direction: flex;gap:10px;align-items:center;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#54B500;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #54B500;margin: 0px;")
+                  |  Active  (#{locals.companyData.activeCompaniesUsers})
+              div(style='display: flex;flex-direction: flex;align-items:center;gap:10px;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#D0FF92;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #D0FF92;margin: 0px;")
+                  |  Inactive (#{locals.companyData.inactiveCompaniesUsers})
+            div(style='padding:15px 0px;display: flex;align-items:center;flex-direction: column;justify-content:space-between;')
+              p(style="width: auto;height: 21px;text-align:center;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 14px;line-height: 21px;color: #000;margin: 0;")
+                | Seat for all companies 
+              canvas#seatChart(style='margin:0px 0px 0px 0px;width:100%;max-width:100px;')
+              div(style='display: flex;flex-direction: flex;gap:10px;align-items:center;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#5D5D5D;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #5D5D5D;margin: 0px;")
+                  |  Active  (#{locals.companyData.totalactiveSeats})
+              div(style='display: flex;flex-direction: flex;align-items:center;gap:10px;width: 100%;justify-content:start;height: auto;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#D1D1D1;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style="width: auto;height: 10px;font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px;color: #D1D1D1;margin: 0px;")
+                  |  Inactive (#{locals.companyData.totalinactiveSeats})
+         
+        div(style='position:relative;margin: 20px 0px 0px 0px;width: 100%;height: 200px;\
+        border-radius: 10px;padding:0px 0px 0px 10px;display: flex;flex-direction: column;justify-content: start;')
+          div(style='padding:15px 0px;display: flex;flex-direction: row;justify-content:space-between;')
+            canvas#b2binterestChart(style='margin:0px 0px 0px 0px;width:40%;max-width:500px;')
+            div(style='width:60%;height:auto;display:flex;flex-direction:column;')
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:10px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#5D5D5D;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Website (#{locals.b2bVia.totalViaWebsite})
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:10px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#2A9D8F;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Sales (#{locals.b2bVia.totalViaSales})
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:10px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#8B5CF6;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Paid Ads (#{locals.b2bVia.totalViaPaidAds})
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:10px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#61A5F4;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Google (#{locals.b2bVia.totalViaGoogle})
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:10px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#F4A261;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Facebook (#{locals.b2bVia.totalViaFacebook})
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:10px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#54B500;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Linkedln (#{locals.b2bVia.totalViaLinkedin})
+        
+        div(style='position:relative;margin: 105px 0px 0px 0px;width: 100%;height: 200px;\
+        border-radius: 10px;padding:0px 0px 0px 10px;display: flex;flex-direction: column;justify-content: start;')
+          div(style='padding:15px 0px;display: flex;flex-direction: row;justify-content:space-between;')
+            canvas#b2bMoods(style='margin:0px 0px 0px 0px;width:40%;max-width:500px;')
+            div(style='width:60%;height:auto;display:flex;flex-direction:column;')
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:20px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#5D5D5D;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Happy (#{locals.b2bMood.happy})
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:20px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#2A9D8F;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Sad (#{locals.b2bMood.sad})
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:20px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#8B5CF6;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Angry (#{locals.b2bMood.angry})
+              div(style='width:50%;height:auto;display:flex;flex-direction:row;align-items:center;justify-content:start;gap:10px;margin:20px 0px 0px 0px;')
+                p(style="width: 10px;height: 10px;border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;background:#61A5F4;color: #FFFFFF;margin: 0px;")
+                  | 
+                p(style=";border-radius:10px;font-family: 'Poppins';font-style: normal;font-weight: 500;color: #000;margin: 0px;")
+                  | Neutral (#{locals.b2bMood.neutral})
+    
+        div(style='margin-top: 20px;width: 100%;height: auto;')
+          p(style="margin: 0;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 11px;line-height: 14px;color: #727272;")
+        p(style="margin: 200px 0px 10px 0px;text-align: center;width: auto;height: auto;font-family: Poppins;font-style: normal;font-weight: 300;font-size: 13px;line-height: 15px;color: #727272;")
+          | This B2B Overall report is generated from the Shoorah Ltd mobile app ❤️
+    script.
+
+
+      const companyValues = [#{locals.companyData.activeCompanies},#{locals.companyData.inactiveCompanies}];
+      const negoValues = [#{locals.companyData.negotiationActive},#{locals.companyData.negotiationInactive}];
+      const signValues = [#{locals.companyData.signedActive},#{locals.companyData.signedInactive}];
+      const b2busersValues = [#{locals.companyData.activeCompaniesUsers},#{locals.companyData.inactiveCompaniesUsers}];
+      const seatValues = [#{locals.companyData.totalactiveSeats},#{locals.companyData.totalinactiveSeats}];
+      const b2bInterestValues = [#{locals.b2bVia.totalViaWebsite},#{locals.b2bVia.totalViaSales},#{locals.b2bVia.totalViaPaidAds},#{locals.b2bVia.totalViaGoogle},#{locals.b2bVia.totalViaFacebook},#{locals.b2bVia.totalViaLinkedin}];
+      const b2bMoods = [#{locals.b2bMood.happy},#{locals.b2bMood.sad},#{locals.b2bMood.angry},#{locals.b2bMood.neutral}];
+
+      const barColors = [
+      "#61A5F4",
+      "#2A9D8F",
+      "#F4A261",
+      "#E9C46A",
+      "#8B5CF6",
+      "#ADD8E6",
+      "#F08080",
+      "#F46196",
+      "#0b1426",
+      "#6cb259",
+      ];
+      new Chart("companiesChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: barColors,
+      data: companyValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });
+      new Chart("negoChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: ['#F4A261','#FFA836'],
+      data: negoValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });
+      new Chart("signChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: ['#ad2829','#e79d88'],
+      data: signValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });
+      new Chart("b2bChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: ['#54B500','#D0FF92'],
+      data: b2busersValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });
+      new Chart("seatChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: ['#5D5D5D','#D1D1D1'],
+      data: seatValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });
+      new Chart("b2binterestChart", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: [
+      '#5D5D5D',
+      '#2A9D8F',
+      "#8B5CF6",
+      "#61A5F4",
+      "#F4A261",
+      "#54B500",],
+      data: b2bInterestValues,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });
+      new Chart("b2bMoods", {
+      type: "doughnut",
+      data: {
+      datasets: [{
+      backgroundColor: [
+      '#5D5D5D',
+      '#2A9D8F',
+      "#8B5CF6",
+      "#61A5F4"],
+      data: b2bMoods,
+      borderWidth: 4,
+      }]
+      },
+      options: {
+      devicePixelRatio: 7,
+      cutoutPercentage: 60,
+      animation: false,
+      }
+      });

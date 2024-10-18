@@ -1,0 +1,10 @@
+node_modules/
+.env
+logs/
+.eslintrc
+.eslintignore
+.prettierignore
+.prettierrc
+login_logs.txt
+signup_logs.txt
+.idea/
